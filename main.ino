@@ -24,8 +24,8 @@
   formatted using the GNU C formatting and indenting
 */
 
-#include <SPI.h>  //Anna added
-#include <Pixy.h> //Anna added
+#include <SPI.h>  
+#include <Pixy.h> 
 #include <Servo.h>
 #include <Wire.h>
 #include <Firmata.h>
@@ -119,9 +119,9 @@ Servo servos[MAX_SERVOS];
 byte customSysExLength = 0;
 byte aryCustomSysEx[64];
 int analogReading;
-int yAnalogReading; //Anna added
-int widthAnalogReading; //Anna added
-int heightAnalogReading; //Anna added
+int yAnalogReading; 
+int widthAnalogReading; 
+int heightAnalogReading; 
 
 struct dynamixelData {
   byte servo;
@@ -1284,7 +1284,7 @@ void systemDebugCallback(char *debug)
 }
 #endif
 
-Pixy pixy; //Anna added
+Pixy pixy; 
 
 void setup()
 {
@@ -1333,7 +1333,7 @@ void setup()
 
   resetTime = millis();
 
-  pixy.init(); //Anna added
+  pixy.init(); 
 }
 
 /*==============================================================================
@@ -1341,10 +1341,10 @@ void setup()
   ============================================================================*/
 void loop()
 {
-  static int i = 0; //Anna added
-  int j; //Anna added
-  uint16_t blocks; //Anna added
-  char buf[32]; //Anna added
+  static int i = 0; 
+  int j;
+  uint16_t blocks; 
+  char buf[32]; 
   byte pin, analogPin;
 
   /* DIGITALREAD - as fast as possible, check for changes and output them to the
@@ -1362,7 +1362,7 @@ void loop()
   while (Firmata.available())
     Firmata.processInput();
 
-  blocks = pixy.getBlocks(); //Anna added
+  blocks = pixy.getBlocks(); 
 
   /* SEND FTDI WRITE BUFFER - make sure that the FTDI buffer doesn't go over
      60 bytes. use a timer to sending an event character every 4 ms to
@@ -1382,7 +1382,7 @@ void loop()
         analogPin = PIN_TO_ANALOG(pin);
         if (analogInputsToReport & (1 << analogPin)) {
           //analogReading = analogRead(analogPin);
-          if (blocks) { //Anna start
+          if (blocks) { 
             j = 0;
             analogReading = pixy.blocks[j].x;
             yAnalogReading = pixy.blocks[j].y;
@@ -1433,7 +1433,7 @@ void loop()
               Firmata.sendAnalog (analogPin, analogReading);
               debugSerial.println(widthAnalogReading);
             }
-          } //Anna end
+          } 
         }
       }
       delay(5); // Can be deleted 
